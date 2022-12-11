@@ -1,0 +1,54 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    ":dependencyDashboard",
+    ":gitSignOff",
+    ":semanticCommits",
+    ":semanticCommitScope(deps)",
+    "schedule:earlyMondays"
+  ],
+  "enabledManagers": [
+    "regex",
+    "dockerfile",
+    "gomod"
+  ],
+  "dependencyDashboardTitle": "Dependencies Dashboard",
+  "dependencyDashboardHeader": "This issue lists chores and detected dependencies :wave:",
+  "dependencyDashboardLabels": [
+    "bot",
+    "dependencies"
+  ],
+  "branchPrefix": "deps/",
+  "prHeader": "Chore Dependencies Request",
+  "labels": [
+    "bot",
+    "dependencies",
+    "status/0-triage",
+    "area/image",
+    "priority/p2"
+  ],
+  "semanticCommitType": "chore",
+  "commitMessageAction": "",
+  "regexManagers": [
+    {
+      "fileMatch": [
+        "Pkgfile"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>.*?)(?:\\s+extractVersion=(?<extractVersion>.+?))?(?:\\s+versioning=(?<versioning>.+?))?\\s+depName=(?<depName>.+?)?\\s(?:\\s+.*_(?:version|VERSION):\\s+(?<currentValue>.*))?(?:\\s.*_(?:ref|REF):\\s+(?<currentDigest>.*))?"
+      ],
+      "versioningTemplate": "{{#if versioning}}{{versioning}}{{else}}semver{{/if}}"
+    },
+    {
+      "fileMatch": [
+        "Pkgfile",
+        "Makefile"
+      ],
+      "matchStrings": [
+        "(?<depName>ghcr.io\\/sentinelos\\/packer):(?<currentValue>*)"
+      ],
+      "datasourceTemplate": "docker",
+      "versioningTemplate": "semver"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+title: fhs
+description: Filesystem Hierarchy Standard
+licenses: MPL-2.0
+authors: Sentinel OS Authors
+documentation: https://github.com/sentinelos/packages/blob/main/README.md
+source: https://github.com/sentinelos/packages
+steps:
+  - install:
+      - |
+        mkdir -pv {{ .ARTIFACTS }}/{dev,lib,proc,sys,bin,sbin,etc,opt,run}
+        mkdir -pv {{ .ARTIFACTS }}/usr/{bin,sbin,lib,var,include,src}
+        mkdir -pv {{ .ARTIFACTS }}/usr/local/{bin,sbin,lib,include}
+        mkdir -pv {{ .ARTIFACTS }}/var/{log,run,mail,spool}
+        install -dv -m 0750 {{ .ARTIFACTS }}/root
+        install -dv -m 1777 {{ .ARTIFACTS }}/tmp {{ .ARTIFACTS }}/var/tmp
+finalize:
+  from: {{ .ARTIFACTS }}
+  to: /

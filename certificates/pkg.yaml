@@ -1,0 +1,21 @@
+title: certificates
+description: Common CA certificates PEM files from Mozilla
+licenses: MPL-2.0 AND MIT
+authors: Mozilla
+documentation: https://wiki.mozilla.org/CA
+source: https://curl.se/ca/cacert-{{ .certificates_version }}.pem
+steps:
+  - sources:
+      - url: https://curl.se/ca/cacert-{{ .certificates_version }}.pem
+        destination: certificates.pem
+        sha256: "{{ .certificates_sha256 }}"
+        sha512: "{{ .certificates_sha512 }}"
+    prepare:
+      - |
+        mkdir -p {{ .ARTIFACTS }}/etc/ssl/certs
+    install:
+      - |
+        mv certificates.pem {{ .ARTIFACTS }}/etc/ssl/certs/ca-certificates
+finalize:
+  from: {{ .ARTIFACTS }}
+  to: /
