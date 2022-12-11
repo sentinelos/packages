@@ -45,7 +45,7 @@
         "Makefile"
       ],
       "matchStrings": [
-        "(?<depName>ghcr.io\\/sentinelos\\/packer):(?<currentValue>*)"
+        "(?<depName>ghcr.io\\/sentinelos\\/packer):(?<currentValue>.*)"
       ],
       "datasourceTemplate": "docker",
       "versioningTemplate": "semver"
